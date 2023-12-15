@@ -2,8 +2,6 @@ package com.example.android.di
 
 import com.example.android.BuildConfig
 import com.example.android.common.Constants
-import com.example.android.core.dispatchers.AppDispatcher
-import com.example.android.core.dispatchers.Dispatcher
 import com.example.android.data.remote.MovieApi
 import com.example.android.data.repository.MovieRepositoryImpl
 import com.example.android.domain.repository.MovieRepository
@@ -62,11 +60,5 @@ object AppModule {
     @Singleton
     fun provideMovieRepository(api: MovieApi): MovieRepository {
         return MovieRepositoryImpl(api)
-    }
-
-    @Provides
-    @Singleton
-    fun provideAppDispatcher(): Dispatcher {
-        return AppDispatcher()
     }
 }

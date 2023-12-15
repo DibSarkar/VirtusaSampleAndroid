@@ -1,13 +1,10 @@
 package com.example.android.presentation.popular_movies
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.android.common.Resource
-import com.example.android.core.dispatchers.Dispatcher
 import com.example.android.domain.model.Movie
 import com.example.android.domain.use_case.get_popular_movies.GetPopularMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +16,7 @@ import kotlin.coroutines.suspendCoroutine
 
 @HiltViewModel
 class PopularMoviesViewModel @Inject constructor(
-    private val getPopularMoviesUseCase: GetPopularMoviesUseCase, private val appDispatcher: Dispatcher
+    private val getPopularMoviesUseCase: GetPopularMoviesUseCase
 ) : ViewModel(), CoroutineScope {
 
     private val _movies = MutableStateFlow<Resource<List<Movie>>>(Resource.Loading())
