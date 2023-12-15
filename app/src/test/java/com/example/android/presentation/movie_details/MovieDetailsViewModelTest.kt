@@ -38,9 +38,8 @@ class MovieDetailsViewModelTest {
             movieDetailsViewModel.getMovieDetails(1)
             coVerify(exactly = 1) { getMovieDetailsUseCase(1) }
 
-            assert(movieDetailsViewModel.movieDetails.value != null)
             assert(movieDetailsViewModel.movieDetails.value is Resource.Success)
-            assert(movieDetailsViewModel.movieDetails.value!!.data != null)
+            assert(movieDetailsViewModel.movieDetails.value.data != null)
         }
     }
 
@@ -53,9 +52,8 @@ class MovieDetailsViewModelTest {
             movieDetailsViewModel.getMovieDetails(1)
             coVerify(exactly = 1) { getMovieDetailsUseCase(1) }
 
-            assert(movieDetailsViewModel.movieDetails.value != null)
             assert(movieDetailsViewModel.movieDetails.value is Resource.Error)
-            assert(movieDetailsViewModel.movieDetails.value!!.uiText != null)
+            assert(movieDetailsViewModel.movieDetails.value.uiText != null)
         }
     }
 }

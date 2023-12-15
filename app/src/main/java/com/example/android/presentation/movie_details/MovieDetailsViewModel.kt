@@ -9,29 +9,23 @@ import com.example.android.domain.use_case.get_movie_details.GetMovieDetailsUseC
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
     private val getMovieDetailsUseCase: GetMovieDetailsUseCase, private val appDispatcher: Dispatcher
-) : ViewModel() {
+) : ViewModel(), CoroutineScope {
 
     private val _movieDetails = MutableStateFlow<Resource<MovieDetails>>(Resource.Loading())
     val movieDetails = _movieDetails.asStateFlow()
 
-    fun getMovieDetails(movieId: Int) {
-        launchOnViewModelScope(appDispatcher.io) {
-            getMovieDetailsUseCase(movieId).collect {
-                _movieDetails.value = it
-            }
-        }
-    }
+     fun getMovieDetails(movieId: Int) = launch(coroutineContext) {   getMovieDetailsUseCase(movieId).collect {_movieDetails.value = it } }
 
-    private fun launchOnViewModelScope(
-        coroutineDispatcher: CoroutineDispatcher,
-        coroutine: suspend CoroutineScope.() -> Unit
-    ) = viewModelScope.launch(coroutineDispatcher, block = coroutine)
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.IO
 }

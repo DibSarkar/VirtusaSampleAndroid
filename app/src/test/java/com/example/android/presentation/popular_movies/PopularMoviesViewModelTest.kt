@@ -45,9 +45,8 @@ class PopularMoviesViewModelTest {
 
             coVerify (exactly = 1) { getPopularMoviesUseCase() }
 
-            assert(popularMoviesViewModel.movies.value != null)
             assert(popularMoviesViewModel.movies.value is Resource.Success)
-            assert(popularMoviesViewModel.movies.value!!.data != null)
+            assert(popularMoviesViewModel.movies.value.data != null)
         }
     }
 
@@ -62,9 +61,8 @@ class PopularMoviesViewModelTest {
 
             coVerify(exactly = 1) { getPopularMoviesUseCase() }
 
-            assert(popularMoviesViewModel.movies.value != null)
             assert(popularMoviesViewModel.movies.value is Resource.Error)
-            assert(popularMoviesViewModel.movies.value!!.uiText != null)
+            assert(popularMoviesViewModel.movies.value.uiText != null)
 
         }
     }
